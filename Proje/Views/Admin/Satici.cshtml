@@ -1,0 +1,157 @@
+﻿@using Proje.Models;
+@model List<Publishers>
+@{
+    ViewBag.Title = "Satici";
+    Layout = "~/Views/Layout.cshtml";
+}
+@section admin{
+
+    <div class="modal" id="myModalyeni">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Yayınevini silmek istiyor musunuz? Bu işlem geri alınamaz!</h4>
+
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <p class="mesaj"></p>
+                    <p class="hata"></p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary satici-sil" onclick="silSatici()"> Sil </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Vazgeç</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+<style>
+    table, td, th {
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 15px;
+    }
+    .table-container {
+        width: 80%; /* Kapsayıcının genişliği */
+        max-width: 1200px; /* Maksimum genişlik */
+        margin: 0 auto; /* Ortalamak için margin */
+        padding: 20px;
+       
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        background-color: #343a40; /* Tablo arka plan rengi */
+    }
+    .table {
+        width: 100%;
+        
+        margin-bottom: 50px;
+        border-collapse: collapse;
+        color: #ffffff; /* Tablo yazı rengi */
+    }
+        .table tbody tr:hover {
+            background-color: #6c757d; /* Satır hover rengi */
+            cursor: pointer;
+        }
+
+    /* Buton stili */
+    .add-to-cart-btn {
+        background-color: #dc3545; /* Buton arka plan rengi */
+        color: #ffffff; /* Buton yazı rengi */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .add-to-cart-btn:hover {
+            background-color: #c82333;
+        }
+</style>
+
+
+<div>
+    <table class="table table-container table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col"> ID</th>
+                <th scope="col">Yayınevi</th>
+                <th scope="col">Faks</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Sil</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Publishers p in Model)
+            {
+                <tr>
+                    <th scope="row">@p.pubID</th>
+
+                    <td>@p.pName</td>
+                    <td>@p.faks</td>
+                    <td>@p.tel</td>
+                    <td> <button class="add-to-cart-btn modalyeni" data-pub="@p.pubID" data-name="@p.pName" data-bs-toggle="modal" data-bs-target="#myModalyeni"> <i class="fa fa-remove"></i> YAYINEVİNİ SİL </button></td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scr{
+    <script src="~/shared/js/jquery.zoom.min.js"></script>
+
+    <script>
+        $(document).on("click", ".modalyeni", function () {
+            var pName = $(this).data("name");
+            var publisherId = $(this).data("pub");
+
+            $(".modal-body").data("name", pName);
+            $(".modal-body").data("pub", publisherId);
+
+            $(".modal-body>p.mesaj").html(publisherId + " numaralı " + pName + " isimli yayınevini ve kitaplarını silmek üzeresiniz.");
+        });
+
+        $(document).on("click", ".satici-sil", function () {
+            var pName = $(".modal-body").data("name");
+            var publisherId = $(".modal-body").data("pub");
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Sil",
+                data: { publisherId: publisherId },
+                success: function (response) {
+                    if (response === "basarili") {
+                        $(".modal-body>p.mesaj").html("Yayınevi ve kitapları başarıyla silindi");
+                        $(".satici-sil").hide();
+                        $(".btn-danger").removeClass("btn-danger").addClass("btn-primary").text("Tamam");
+                    } else {
+                        $(".modal-body>p.hata").html(response);
+                    }
+                },
+                error: function () {
+                    $(".modal-body>p.hata").html("Hata Oluştu");
+                }
+            });
+        });
+
+    </script>
+}
+

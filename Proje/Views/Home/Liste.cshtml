@@ -1,0 +1,183 @@
+﻿@model List<Proje.Models.kitaplar>
+
+@{
+    ViewBag.Title = "Liste";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+
+
+
+@{
+    int columnCount = 4;
+
+    int rowCount = (int)Math.Ceiling(Model.Count() / (double)columnCount); // Satır sayısını hesaplayın
+    int currentIndex = 0; // Mevcut ürün indeksini takip etmek için değişken
+}
+<style>
+    .product-img img {
+        width: 345px;
+        height: 450px;
+        object-fit: cover;
+    }
+
+    .row {
+        margin-bottom: 42px;
+    }
+</style>
+<div class="section">
+    <div class="container">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">
+                <strong>Bilgi!</strong> Gösterilecek kitap bulunmamaktadır.
+            </div>
+        }
+        else
+        {
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                <div class="row">
+                    @for (int j = 0; j < columnCount; j++)
+                    {
+                        if (currentIndex < Model.Count())
+                        {
+                            var m = Model.ElementAt(currentIndex);
+                            if (m.Stock > 0 || string.IsNullOrEmpty(m.Stock.ToString()))
+                            {
+                            <div class="col-md-3">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="@m.CoverURL" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@m.PublisherName</p>
+                                        <h3 class="product-name"><a>@m.Title </a></h3>
+                                        <h4 class="product-price">@m.Price TL,  @m.Stock adet </h4>
+                                        <div >
+                                                <h4 class="product-category"> @m.PageNum sayfa  </h4>
+                                            </div>
+                                        <div class="product-btns">
+
+                                            <button class="quick-view"><i class="fa fa-book"></i><span class="tooltipp">@string.Join(", ", m.Genres)</span></button>
+                                        </div>
+                                    </div>
+                                    @if (User.IsInRole("C"))
+                                    {
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn "
+                                                data-book="@m.BookID"
+                                                data-pub="@m.PubID"
+                                                onclick="addToCart(this)">
+                                            <i class="fa fa-shopping-cart"></i> SEPETE EKLE
+                                        </button>
+                                    </div>
+                                    }
+
+
+
+                                </div>
+                            </div>
+
+                                
+                            }
+                            currentIndex++;
+
+                        }
+                    }
+
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+@section something{
+
+    
+    
+
+    <script src="~/shared/js/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Event handler sadece bir kez eklenir
+            $(document).off('click', '.add-to-cart-btn').on('click', '.add-to-cart-btn', function () {
+                addToCart(this);
+            });
+        });
+
+      function addToCart(button) {
+          
+            var bookId = $(button).data('book');
+            var pubId = $(button).data('pub');
+
+           
+          
+           $(button).prop('disabled', true);
+
+            $.ajax({
+                url: '@Url.Action("AddToCart", "Home")',
+                type: 'POST',
+                data: {
+                    bookId: bookId,
+                    pubId: pubId
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        window.location.href = '@Url.Action("Sepet", "Home")' + '?bookId=' + response.bookId + '&pubId=' + response.pubId;
+                    } 
+                    else {
+                        alert(response.message); // Hata mesajını göster
+                    }
+                    $(button).prop('disabled', false);
+                },
+                error: function (xhr, status, error) {
+                    alert("Bir hata oluştu: " + xhr.responseText);
+                    $(button).prop('disabled', false);
+                }
+            });
+        }
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9ecafe0874824abda23d107d36d7bec1" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="KUTUPHANEModel.Authors" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.BookAuthors" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.BookGenre" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.BookPublishers" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.Books" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.CartItems" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.Genre" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.Members" Width="1.5" PointX="3.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.Publishers" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.Purchase" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__BookAutho__autho__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__BookAutho__bookI__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__BookGenre__bookI__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__BookGenre__genre__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__BookPubli__bookI__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__BookPubli__pubID__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__CartItems__bookI__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__Purchase__bookID__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__CartItems__membe__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__Purchase__member__6FE99F9F" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.address" Width="1.5" PointX="8.375" PointY="1.5" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.MemberAddress" Width="1.5" PointX="6.25" PointY="0.75" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__MemberAddre__mID__7C4F7684" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__MemberAddre__aID__7D439ABD" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.Role" Width="1.5" PointX="9.125" PointY="14.875" />
+        <EntityTypeShape EntityType="KUTUPHANEModel.User" Width="1.5" PointX="8.5" PointY="9.25" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__Members__userID__41EDCAC5" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__Publisher__userI__40058253" />
+        <AssociationConnector Association="KUTUPHANEModel.FK__Users__rolID__3F115E1A" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

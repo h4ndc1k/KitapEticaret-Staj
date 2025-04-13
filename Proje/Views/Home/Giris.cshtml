@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Giris";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+    .cart-btn {
+        background-color: #1e1f29; /* Buton arka plan rengi */
+        color: #ffffff; /* Buton yazı rengi */
+       
+    }
+    .cart-btn:hover {
+        background-color: #282a39;
+    }
+</style>
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-8 col-lg-7 col-xl-6 d-flex justify-content-center align-items-center" style="margin-top: 25px;">
+                @*<img src=""
+                     class="img-fluid" alt="Phone image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 1rem;">*@
+            </div>
+            <div class="col-md-7 col-lg-5 col-xl-5 d-flex align-items-center" style="margin-top: 25px; margin-right:100px">
+
+                 
+                <form action="/Home/Giris" method="post" style="width: 100%;">
+                    <!-- Email input -->
+                    @ViewBag.hata
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="email" id="form1Example13" name="userName" placeholder="E-posta" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example13"></label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="password" id="form1Example23" name="password" placeholder="Şifre" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example23"></label>
+                    </div>
+
+                    <div class="d-flex justify-content-around align-items-center mb-4">
+
+                       
+                    </div>
+
+                    <!-- Submit button -->
+                    <button style="margin-top: 20px;"  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block cart-btn">GİRİŞ YAP</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

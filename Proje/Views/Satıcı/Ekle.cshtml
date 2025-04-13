@@ -1,0 +1,90 @@
+﻿
+@using Proje.Models;
+
+
+@model yayinci
+
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #000;
+    }
+    .cart-btn {
+        background-color: #1e1f29; /* Buton arka plan rengi */
+        color: #ffffff; /* Buton yazı rengi */
+    }
+
+        .cart-btn:hover {
+            background-color: #282a39;
+        }
+</style>
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+
+            <div class="col-md-7 col-lg-5 col-xl-5 d-flex align-items-center" style="margin-top: 25px;">
+
+
+                <form action="/Satıcı/Ekle" method="post" style="width: 100%;" enctype="multipart/form-data">
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="form1Example13" value="@Model.Yayınevi" name="PublisherName" placeholder="Yayınevi" class="form-control form-control-lg" readonly/>
+                        <label class="form-label" for="form1Example13"></label>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="form1Example13" name="Title" placeholder="Kitap adı giriniz" class="form-control form-control-lg" required />
+                        <label class="form-label" for="form1Example13"></label>
+                    </div>
+
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="number" step="0.01" id="form1Example23" name="Price" placeholder="Fiyat giriniz" class="form-control form-control-lg" required />
+                        <label class="form-label" for="form1Example23"></label>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="number" id="form1Example23" name="Stock" placeholder="Stok bilgisi giriniz" class="form-control form-control-lg" required />
+                        <label class="form-label" for="form1Example23"></label>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="number" id="form1Example23" name="PageNum" placeholder="Sayfa sayısı giriniz" class="form-control form-control-lg" required />
+                        <label class="form-label" for="form1Example23"></label>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="form1Example13" name="AuthorName" placeholder="Yazar adı giriniz" class="form-control form-control-lg" required />
+                        <label class="form-label" for="form1Example13"></label>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="form1Example13" name="Genres" placeholder="Kategori giriniz" class="form-control form-control-lg" required />
+                        <label class="form-label" for="form1Example13"></label>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="file" id="form1Example14" name="CoverImage" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example14">Kapak resmi seçiniz</label>
+                    </div>
+
+
+                    <button style="margin-top: 20px;" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block cart-btn">EKLE</button>
+                    <div class="d-flex justify-content-around align-items-center mb-4">
+
+                        <a href="/Satıcı/Index">Vazgeç</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

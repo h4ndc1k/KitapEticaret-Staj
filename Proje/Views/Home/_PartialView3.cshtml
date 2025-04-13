@@ -1,0 +1,100 @@
+﻿
+@model List<Proje.Models.Analizkitap>
+
+<style>
+    .product-img img {
+        width: 345px; /* İstediğiniz genişlik */
+        height: 450px; /* İstediğiniz yükseklik */
+        object-fit: cover; /* Oranları koruyarak boyutlandır */
+    }
+</style>
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">ÇOK SATANLAR</h3>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab3" class="tab-pane fade in active">
+                            <div class="products-slick" data-nav="#slick-nav-3">
+
+                                @if (Model == null)
+                                {
+                                    <div class="alert alert-info">
+                                        Gösterilecek yayınevi bulunmamaktadır.
+                                    </div>
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        var kitap = Model.ElementAtOrDefault(i);
+
+                                        if (kitap != null)
+                                        {
+                                            <div class="product">
+                                                <div class="product-img">
+                                                    <img src="@kitap.CoverURL" alt="">
+                                                </div>
+                                                <div class="product-body">
+                                                    <p class="product-category">@kitap.PublisherName</p>
+                                                    <h3 class="product-name"><a>@kitap.Title </a></h3>
+                                                    <h4 class="product-price">  @kitap.AuthorName </h4>
+                                               
+                                                    <h4 class="product-category">@kitap.Price TL </h4>
+                                                </div>
+                                                @*<div class="product-btns">    
+                                                      <button class="quick-view"><i class="fa fa-book"></i><span class="tooltipp"> İNCELE </span></button>
+                                                 </div >*@
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="product">
+                                                <div class="product-img">
+                                                    <img src="" alt="">
+                                                </div>
+                                                <div class="product-body">
+                                                    <p class="product-category"></p>
+                                                    <h3 class="product-name"><a> </a></h3>
+                                                    <h4 class="product-price"></h4>
+                                                </div>
+                                                <div>
+                                                    <h4 class="product-category"> </h4>
+                                                </div>
+
+                                            </div>
+                                        }
+
+
+
+
+
+
+
+
+
+
+
+                                    }
+                                }
+                            </div>
+                            <div id="slick-nav-3"></div>
+                        </div>
+                        <!-- /tab -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

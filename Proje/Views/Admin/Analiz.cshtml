@@ -1,0 +1,97 @@
+﻿@model List<Proje.Models.kitaplar>
+
+
+@{
+    ViewBag.Title = "Analiz";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+}
+<style>
+    table, td, th {
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 15px;
+    }
+
+    .table-container {
+        width: 80%; /* Kapsayıcının genişliği */
+        max-width: 1200px; /* Maksimum genişlik */
+        margin: 0 auto; /* Ortalamak için margin */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        background-color: #343a40; /* Tablo arka plan rengi */
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 50px;
+        border-collapse: collapse;
+        color: #ffffff; /* Tablo yazı rengi */
+    }
+
+        .table tbody tr:hover {
+            background-color: #6c757d; /* Satır hover rengi */
+            cursor: pointer;
+        }
+
+    /* Buton stili */
+    .add-to-cart-btn {
+        background-color: #dc3545; /* Buton arka plan rengi */
+        color: #ffffff; /* Buton yazı rengi */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .add-to-cart-btn:hover {
+            background-color: #c82333;
+        }
+</style>
+
+
+
+
+<div>
+    <table class="table table-container table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col"> kitap ID</th>
+                <th scope="col">yayınevi ID</th>
+                <th scope="col">Kitap Adı</th>
+                <th scope="col">Yazar</th>
+                <th scope="col">Yayınevi</th>
+                <th scope="col">Fiyat</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <th scope="row">@p.BookID</th>
+                    <td>@p.PubID</td>
+                    <td>@p.Title</td>
+                    <td>@p.AuthorName</td>
+                    <td>@p.PublisherName</td>
+                    <td>@p.Price</td>
+                  
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

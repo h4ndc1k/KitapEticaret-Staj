@@ -1,0 +1,147 @@
+﻿
+<!--@using Proje.Models;
+
+@model List<Proje.Models.Authors>
+
+
+<header>
+
+
+    <!-- /TOP HEADER -->
+    <!-- MAIN HEADER -->
+    <!-- /MAIN HEADER -->
+    <!--<div id="header">-->
+        <!-- container -->
+        <!--<div class="container">-->
+            <!-- row -->
+            <!--<div class="row">-->
+                <!-- LOGO -->
+                <!--<div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="#" class="logo">
+                            <img src="~/shared/img/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>-->
+                <!-- /LOGO -->
+                <!-- SEARCH BAR -->
+                <!--<div class="col-md-5">
+                    <div class="header-search">
+                        <form method="post" action="@Url.Action("KitapTür", "Home")">
+                            <select class="input-select" name="id" onchange="this.form.submit()">
+                                <option value="">Kategoriler</option>
+
+                                @foreach (var y in ViewBag.tür as List<Genre>)
+                                {
+                                    <option value="@y.genreID">@y.gName</option>
+                                }
+                            </select>
+                            <input--> @*id="upper"*@ <!--class="input" placeholder="Kitap Adı Giriniz" name="bookName">
+                            <button type="submit" class="search-btn">Ara</button>
+                        </form>
+
+
+
+                    </div>
+                </div>-->
+                <!-- /SEARCH BAR -->
+                <!-- ACCOUNT -->
+                <!--<div class="col-md-4 clearfix">
+                    <div class="header-ctn">-->
+                        <!-- Wishlist -->
+                        <!--<div>
+                            <a href="/Home/Uyelik">
+                                <i class="fa fa-user-o"></i>
+                                <span>ÜYE OL</span>
+                                <div class="qty">2</div>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#">
+                                <i class="fa fa-heart-o"></i>
+                                <span>GİRİŞ YAP</span>
+                                <div class="qty">2</div>
+                            </a>
+                        </div>-->
+                        <!-- /Wishlist -->
+                        <!-- Cart -->
+                      
+                        <!-- /Cart -->
+                        <!-- Menu Toogle -->
+                        <!--<div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>-->
+                        <!-- /Menu Toogle -->
+                    <!--</div>
+                </div>-->
+                <!-- /ACCOUNT -->
+            <!--</div>-->
+            <!-- row -->
+        <!--</div>-->
+        <!-- container -->
+    <!--</div>
+
+</header>
+
+
+<nav id="navigation">
+    <div class="container">
+
+        <div id="responsive-nav">
+            <div class="dropdown">
+
+                <ul class="main-nav nav navbar-nav">
+                    <li class="active"><a href="#">Ana Sayfa</a></li>
+                    <li class="dropdown">
+                        <a href="/Satıcı/Listele" class="dropdown-toggle" data-toggle="dropdown">Kitaplarınız<span class="caret"></span></a>
+                         
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kitap Ekle<span class="caret"></span></a>
+                       
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Fiyat <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="dropdown">
+                                    <form method="post" action="@Url.Action("KitapFiyat", "Home")">
+                                        <select class="input-select" name="range" style="width: 200px;" onchange="this.form.submit()">
+                                            <option value="">Fiyat Aralığını Seçiniz</option>
+                                            <option value="0-50">0-80TL</option>
+                                            <option value="81-150">81-150 TL</option>
+                                            <option value="151-200">151-200 TL</option>
+                                            <option value="201-300">201-300 TL</option>
+                                            <option value="301-600">301-600 TL</option>
+                                            <option value="601-800">601-800 TL</option>
+                                            <option value="801-1000">801-1000 TL</option>
+                                            <option value="1001-5000">1001-5000 TL</option>
+                                            <option value="5001-10000">5001-10000 TL</option>
+                                            <option value="10001-50000">10001-50000 TL</option>
+
+                                        </select>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                   
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</nav>-->
+
+@*@section scripts{
+    <script>
+        function convertToUpperCase() {
+            const upper = document.getElementById('upper');
+            upper.value = upper.value.toUpperCase();
+        }
+    </script>
+    }*@-->

@@ -1,0 +1,198 @@
+﻿@model List<Proje.Models.sepetim>
+
+@{
+    ViewBag.Title = "Sepet";
+    Layout = "~/Views/Layout.cshtml";
+}
+@section some{
+
+    <div class="modal" id="myModalnew">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Ürünü satın almak istiyor musunuz?</h4>
+
+                </div>
+
+
+                <div class="modal-body">
+
+                    <p class="mesaj"></p>
+                    <p class="hata"></p>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary kitap-al" onclick="alKitap()">Satın Al</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Vazgeç</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+<div class="section">
+    <div class="container">
+        <div class="alert alert-info">
+            Sepetinizdeki toplam @ViewBag.TotalPrice.ToString("C") TL tutarındaki kitaplar
+        </div>
+     </div>
+</div>
+        @{
+            int columnCount = 4;
+
+            int rowCount = (int)Math.Ceiling(Model.Count() / (double)columnCount); // Satır sayısını hesaplayın
+            int currentIndex = 0; // Mevcut ürün indeksini takip etmek için değişken
+        }
+        <style>
+            .product-img img {
+                width: 345px;
+                height: 450px;
+                object-fit: cover;
+            }
+
+            .row {
+                margin-bottom: 42px;
+            }
+        </style>
+        <div class="section">
+            <div class="container">
+                @if (!Model.Any())
+                {
+                    <div class="alert alert-info "  style="margin-top: 10px;">
+                        <strong>Bilgi!</strong> Henüz sepete kitap eklemediniz.
+                    </div>
+                }
+                else
+                {
+
+                    for (int i = 0; i < rowCount; i++)
+                    {
+                        <div class="row">
+                            @for (int j = 0; j < columnCount; j++)
+                            {
+                                if (currentIndex < Model.Count())
+                                {
+                                    var m = Model.ElementAt(currentIndex);
+                                   
+                                    <div class="col-md-3">
+                                        <div class="product">
+                                            <div class="product-img">
+                                                <img src="@m.CoverURL" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">@m.PublisherName</p>
+                                                <h3 class="product-name"><a>@m.Title </a></h3>
+                                                <h4 class="product-price">@m.NewPrice TL  <del class="product-old-price">@m.UnitPrice TL</del></h4>
+                                               
+                                                <div >
+                                                    <h4 class="product-category"> Stokta @m.Stock adet </h4>
+                                                </div>
+                                                <div class="product-btns">
+
+                                                    <button class="quick-view"><i class="fa fa-book"></i><span class="tooltipp"> @m.PageNum sayfa</span></button>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="add-to-cart">
+                                                <button class="add-to-cart-btn ModalAc" data-book="@m.BookID" data-pub="@m.PubID" data-bs-toggle="modal" data-bs-target="#myModalnew"> <i class="fa fa-shopping-cart"></i> SATIN AL </button>
+
+                                            </div>
+                                            
+
+
+                                        </div>
+                                    </div>
+
+                                    currentIndex++;
+
+
+                                }
+                            }
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        @section yeni{
+            <script src="~/shared/js/jquery.zoom.min.js"></script>
+
+            <script>
+                $(document).on("click", ".ModalAc", function () {
+                    var bookId = $(this).data("book");
+                    var publisherId = $(this).data("pub");
+
+                    $(".modal-body").data("book", bookId);
+                    $(".modal-body").data("pub", publisherId);
+
+                    $(".modal-body>p.mesaj").html(bookId + " numaralı kitabı ve " + publisherId + " numaralı yayınevine ait kitabı satın almak istiyor musunuz?");
+                });
+
+                $(document).on("click", ".kitap-al", function () {
+                    var bookId = $(".modal-body").data("book");
+                    var publisherId = $(".modal-body").data("pub");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Home/purchase",
+                        data: { bookId: bookId, publisherId: publisherId },
+                        success: function (response) {
+                            if (response == "basarili") {
+                                $(".modal-body>p.mesaj").html("Kitap satın alma işlemi başarıyla gerçekleştirildi");
+                                $(".kitap-al").hide();
+                                $(".btn-danger").removeClass("btn-danger").addClass("btn-primary").text("Tamam");
+                            }
+
+
+                            else {
+                                $(".modal-body>p.hata").html(response);
+                                $(".kitap-al").hide();
+                                $(".btn-danger").removeClass("btn-danger").addClass("btn-primary").text("Tamam");
+                            }
+                        },
+                        error: function () {
+                            $(".modal-body>p.hata").html("Hata Oluştu");
+                        }
+
+                    });
+
+
+                });
+
+            </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }

@@ -1,0 +1,277 @@
+﻿
+@using Proje.Models;
+
+@model List<Proje.Models.Authors>
+
+
+<header>
+    <style>
+        .bay img {
+           
+            margin-bottom:35px;
+        }
+
+        
+    </style>
+
+    <div id="header">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-3">
+                    <div class="header-logo bay">
+                        <a  class="logo" >
+                            <img src="~/shared/img/son.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+                <!-- SEARCH BAR -->
+                <div class="col-md-5">
+                    <div class="header-search">
+                        <form method="post" action="@Url.Action("KitapTür", "Home")">
+                            <select class="input-select" name="id" onchange="this.form.submit()">
+                                <option value="">Kategoriler</option>
+
+                                @foreach (var y in ViewBag.tür as List<Genre>)
+                                {
+                                    <option value="@y.genreID">@y.gName</option>
+                                }
+                            </select>
+                            <input @*id="upper"*@ class="input" placeholder="Kitap Adı Giriniz" name="bookName">
+                            <button type="submit" class="search-btn " style="background-color: #f08245;">Ara</button>
+                        </form>
+
+
+
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
+                <!-- ACCOUNT -->
+                <div class="col-md-4 clearfix">
+                    <div class="header-ctn">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div>
+                                <a href="/Home/Uyelik">
+                                    <i class="fa fa-user-o"></i>
+                                    <span>ÜYE OL</span>
+
+                                </a>
+                            </div>
+                        }
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div>
+                                <a href="/Home/Giris">
+                                    <i class="fa fa-user-circle"></i>
+                                    <span>GİRİŞ YAP</span>
+
+                                </a>
+                            </div>
+                        }
+                        @if (User.IsInRole("C"))
+                        {
+                            <div>
+                                <a href="/Home/Sepet">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Sepetim</span>
+
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/Home/Siparis">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Siparişleriniz</span>
+
+                                </a>
+                            </div>
+                        }
+
+                        @if (User.IsInRole("C") || User.IsInRole("P") || User.IsInRole("A"))
+                        {
+                            <div>
+                                <a href="/Home/Logout">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span>Çıkış Yap</span>
+
+                                </a>
+                            </div>
+                        }
+                    
+
+
+                        <!-- /Cart -->
+                        <!-- Menu Toogle -->
+                        @*<div class="menu-toggle">
+            <a href="#">
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+            </a>
+        </div>*@
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+
+</header>
+
+
+<nav id="navigation">
+    <div class="container">
+
+        <div id="responsive-nav">
+            <div class="dropdown">
+
+                <ul class="main-nav nav navbar-nav">
+                    <li class="active"><a href="/Home/Index">Ana Sayfa</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Yayınevi<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <div class="dropdown">
+                                    <form method="post" action="@Url.Action("KitapYayın", "Home")">
+                                        <select class="input-select" name="id1" style="width: 200px;" onchange="this.form.submit()">
+                                            <option value="">Seçiniz</option>
+                                            @foreach (var y in ViewBag.yayınevi as List<Publishers>)
+                                            {
+                                                <option value="@y.pubID">@y.pName</option>
+                                            }
+                                        </select>
+                                    </form>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Yazarlar <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="dropdown">
+                                    <form method="post" action="@Url.Action("Liste", "Home")">
+                                        <select class="input-select" name="id" style="width: 200px;" onchange="this.form.submit()">
+                                            <option value="">Seçiniz</option>
+                                            @foreach (var y in Model)
+                                            {
+                                                <option value="@y.authorID">@y.authorName</option>
+                                            }
+                                        </select>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Fiyat <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="dropdown">
+                                    <form method="post" action="@Url.Action("KitapFiyat", "Home")">
+                                        <select class="input-select" name="range" style="width: 200px;" onchange="this.form.submit()">
+                                            <option value="">Fiyat Aralığını Seçiniz</option>
+                                            <option value="0-50">0-80TL</option>
+                                            <option value="81-150">81-150 TL</option>
+                                            <option value="151-200">151-200 TL</option>
+                                            <option value="201-300">201-300 TL</option>
+                                            <option value="301-600">301-600 TL</option>
+                                            <option value="601-800">601-800 TL</option>
+                                            <option value="801-1000">801-1000 TL</option>
+                                            <option value="1001-5000">1001-5000 TL</option>
+                                            <option value="5001-10000">5001-10000 TL</option>
+                                            <option value="10001-50000">10001-50000 TL</option>
+
+                                        </select>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sayfa Sayısı <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="dropdown">
+                                    <form method="post" action="@Url.Action("KitapSayfa", "Home")">
+                                        <select class="input-select" name="range" style="width: 200px;" onchange="this.form.submit()">
+                                            <option value="">Sayfa Aralığını Seçiniz</option>
+                                            <option value="0-100">0-100</option>
+                                            <option value="101-300">101-300</option>
+                                            <option value="301-500">301-500 </option>
+                                            <option value="501-800">501-800 </option>
+                                            <option value="801-1000">801-1000 </option>
+                                            <option value="1001-5000">1001-5000 </option>
+
+
+                                        </select>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    @if (User.IsInRole("C"))
+                    {
+                        <li>
+                            <a href="/Home/İletisim">İletişim Bilgileriniz<span class="caret"></span></a>
+                        </li>
+                    }
+                    @if (User.IsInRole("P"))
+                    {
+                        <li>
+                            <a href="/Satıcı/Listele">Kitaplarınız<span class="caret"></span></a>
+                        </li>
+                    }
+                    @if (User.IsInRole("P"))
+                    {
+                        <li>
+                            <a href="/Satıcı/Ekle">Kitap Ekle<span class="caret"></span></a>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("A"))
+                    {
+                        <li>
+                            <a href="/Admin/Satici">Satıcıları Gör<span class="caret"></span></a>
+                        </li>
+                    }
+                    @if (User.IsInRole("A"))
+                    {
+                        <li>
+                            <a href="/Admin/Analiz">Satın Alım Analizi<span class="caret"></span></a>
+                        </li>
+                    }
+                    @if (User.IsInRole("A"))
+                    {
+                        <li>
+                            <a href="/Admin/KitapEkle">Kitap Ekle<span class="caret"></span></a>
+                        </li>
+                    }
+
+
+
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+
+@*@section scripts{
+    <script>
+        function convertToUpperCase() {
+            const upper = document.getElementById('upper');
+            upper.value = upper.value.toUpperCase();
+        }
+    </script>
+    }*@

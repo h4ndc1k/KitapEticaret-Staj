@@ -1,0 +1,63 @@
+﻿
+@*@{
+    ViewBag.Title = "Purchase";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+</style>
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+
+            <div class="col-md-7 col-lg-5 col-xl-5 d-flex align-items-center" style="margin-top: 25px;">
+
+
+                <form action="/Home/Purchase" method="post" style="width: 100%;">
+
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="form1Example13" name="city" placeholder="İl" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example13"></label>
+                    </div>
+
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="number" step="0.01" id="form1Example23" name="district" placeholder="İlçe" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example23"></label>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="number" id="form1Example23" name="nbhood" placeholder="Mahalle" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example23"></label>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="number" id="form1Example23" name="street" placeholder="Sokak" class="form-control form-control-lg" />
+                        <label class="form-label" for="form1Example23"></label>
+                    </div>
+                  
+
+
+                    <button style="margin-top: 20px;" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">SATIN AL</button>
+                    <div class="d-flex justify-content-around align-items-center mb-4">
+
+                        <a href="/Home/Index">Vazgeç</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>*@
+
+
+

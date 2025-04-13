@@ -1,0 +1,158 @@
+﻿@using Proje.Models;
+
+@model List<kitaplar>
+@{
+    ViewBag.Title = "Listele";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+@section body{
+
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Ürünü silmek istiyor musunuz?</h4>
+                    
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                   
+                    <p class="mesaj"></p>
+                    <p class="hata"></p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary kitap-sil" onclick="silKitap()">Stoktan Kaldır</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Vazgeç</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+@{
+    int columnCount = 4;
+
+    int rowCount = (int)Math.Ceiling(Model.Count() / (double)columnCount);
+    int currentIndex = 0;
+}
+<style>
+    .product-img img {
+        width: 345px;
+        height: 450px;
+        object-fit: cover;
+    }
+
+    .row {
+        margin-bottom: 42px;
+    }
+</style>
+<div class="section">
+    <div class="container">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">
+                <strong>Bilgi!</strong> Gösterilecek kitap bulunmamaktadır.
+            </div>
+        }
+        else
+        {
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                <div class="row">
+                    @for (int j = 0; j < columnCount; j++)
+                    {
+                        if (currentIndex < Model.Count())
+                        {
+                            var m = Model.ElementAt(currentIndex);
+                            if (m.Stock > 0)
+                            {
+                            <div class="col-md-3">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="@m.CoverURL" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@m.PublisherName </p>
+                                        <h3 class="product-name"><a href="#">@m.Title</a></h3>
+                                        <h4 class="product-price">@m.Price TL</h4>
+                                        <div>
+                                            <h4 class="product-category"> @string.Join(", ", m.Genres) , @m.AuthorName</h4>
+                                        </div>
+                                        <div class="product-btns">
+                                            <a class="quick-view" href="/Satıcı/guncelle/@m.BookID"> <i class="fa fa-book"> </i><span class="tooltipp">GÜNCELLE</span> </a>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn modalAc" data-book="@m.BookID" data-pub="@m.PubID" data-bs-toggle="modal"  data-bs-target="#myModal"> <i class="fa fa-remove"></i> STOKTAN KALDIR </button>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            }
+                            currentIndex++;
+
+
+                        }
+                    }
+
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/shared/js/jquery.zoom.min.js"></script>
+    
+    <script>
+        $(document).on("click", ".modalAc", function () {
+            var bookId = $(this).data("book");
+            var publisherId = $(this).data("pub");
+
+            $(".modal-body").data("book", bookId);
+            $(".modal-body").data("pub", publisherId);
+
+            $(".modal-body>p.mesaj").html(" Kitabı stoktan kaldırmak istiyor musunuz?");
+        });
+
+        $(document).on("click", ".kitap-sil", function () {
+            var bookId = $(".modal-body").data("book");
+            var publisherId = $(".modal-body").data("pub");
+
+            $.ajax({
+                type: "POST",
+                url: "/Satıcı/Sil",
+                data: { bookId: bookId, publisherId: publisherId },
+                success: function (response) {
+                    if (response === "basarili") {
+                        window.location.replace("/Satıcı/Index");
+                    } else {
+                        $(".modal-body>p.hata").html(response);
+                    }
+                },
+                error: function () {
+                    $(".modal-body>p.hata").html("Hata Oluştu");
+                }
+            });
+        });
+
+    </script>
+}
+
